@@ -402,7 +402,7 @@
     ]
   },
   "resources/css/app.css": {
-    "file": "assets/app-DBbrfeYH.css",
+    "file": "assets/app-C7e_-sQC.css",
     "name": "app",
     "names": [
       "app.css"
@@ -411,7 +411,7 @@
     "isEntry": true
   },
   "resources/js/app.tsx": {
-    "file": "assets/app-lfW6uvDe.js",
+    "file": "assets/app-CE292AZ6.js",
     "name": "app",
     "src": "resources/js/app.tsx",
     "isEntry": true,
@@ -752,7 +752,7 @@
     ]
   },
   "resources/js/pages/site/product-detail.tsx": {
-    "file": "assets/product-detail-DWHGGhZi.js",
+    "file": "assets/product-detail-tAQRTWAC.js",
     "name": "product-detail",
     "src": "resources/js/pages/site/product-detail.tsx",
     "isDynamicEntry": true,

@@ -33,6 +33,18 @@
         <link rel="icon" href="/favicon.png" type="image/png">
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
+        @isset($socialMeta)
+            <meta property="og:type" content="product">
+            <meta property="og:site_name" content="Eplus">
+            <meta property="og:title" content="{{ $socialMeta['title'] }}">
+            <meta property="og:description" content="{{ $socialMeta['description'] }}">
+            <meta property="og:url" content="{{ $socialMeta['url'] }}">
+            @if ($socialMeta['image'])
+                <meta property="og:image" content="{{ $socialMeta['image'] }}">
+                <meta property="og:image:alt" content="{{ $socialMeta['title'] }}">
+            @endif
+        @endisset
+
         @fonts
 
         @viteReactRefresh

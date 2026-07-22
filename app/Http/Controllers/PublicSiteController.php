@@ -126,16 +126,27 @@ class PublicSiteController extends Controller
         ]);
     }
 
-    public function product(string $slug): Response
+    public function product(Request $request, string $slug): Response
     {
         $product = DB::table('products')->where('slug', $slug)->where('active', true)->first();
         abort_unless($product, 404);
         $product->summary = $this->plainText($product->summary);
 
+        $shareImage = $product->featured
+            ? url('/storage/'.ltrim($product->featured, '/'))
+            : null;
+
         return Inertia::render('site/product-detail', [
             'product' => $product,
             'heroImage' => DB::table('categories')->where('type', 'product')->whereNull('category_id')->value('featured'),
             'whatsapp' => DB::table('settings')->value('whatsapp'),
+            'shareImage' => $shareImage,
+            'shareUrl' => $request->url(),
+        ])->withViewData('socialMeta', [
+            'title' => $product->title.' | Eplus',
+            'description' => $product->summary ?: $product->title,
+            'image' => $shareImage,
+            'url' => $request->url(),
         ]);
     }
 
