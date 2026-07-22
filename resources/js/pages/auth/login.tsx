@@ -1,12 +1,8 @@
-import { Form, Head } from '@inertiajs/react';
 import InputError from '@/components/input-error';
 import PasswordInput from '@/components/password-input';
-import TextLink from '@/components/text-link';
-import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Spinner } from '@/components/ui/spinner';
+import { Form, Head, Link } from '@inertiajs/react';
+import { ArrowRight, LoaderCircle, LockKeyhole, Mail } from 'lucide-react';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
 
@@ -16,92 +12,21 @@ type Props = {
 };
 
 export default function Login({ status, canResetPassword }: Props) {
-    return (
-        <>
-            <Head title="Log in" />
-
-            <Form
-                {...store.form()}
-                resetOnSuccess={['password']}
-                className="flex flex-col gap-6"
-            >
-                {({ processing, errors }) => (
-                    <>
-                        <div className="grid gap-6">
-                            <div className="grid gap-2">
-                                <Label htmlFor="email">Email address</Label>
-                                <Input
-                                    id="email"
-                                    type="email"
-                                    name="email"
-                                    required
-                                    autoFocus
-                                    tabIndex={1}
-                                    autoComplete="email"
-                                    placeholder="email@example.com"
-                                />
-                                <InputError message={errors.email} />
-                            </div>
-
-                            <div className="grid gap-2">
-                                <div className="flex items-center">
-                                    <Label htmlFor="password">Password</Label>
-                                    {canResetPassword && (
-                                        <TextLink
-                                            href={request()}
-                                            className="ml-auto text-sm"
-                                            tabIndex={5}
-                                        >
-                                            Forgot your password?
-                                        </TextLink>
-                                    )}
-                                </div>
-                                <PasswordInput
-                                    id="password"
-                                    name="password"
-                                    required
-                                    tabIndex={2}
-                                    autoComplete="current-password"
-                                    placeholder="Password"
-                                />
-                                <InputError message={errors.password} />
-                            </div>
-
-                            <div className="flex items-center space-x-3">
-                                <Checkbox
-                                    id="remember"
-                                    name="remember"
-                                    tabIndex={3}
-                                />
-                                <Label htmlFor="remember">Remember me</Label>
-                            </div>
-
-                            <Button
-                                type="submit"
-                                className="mt-4 w-full"
-                                tabIndex={4}
-                                disabled={processing}
-                                data-test="login-button"
-                            >
-                                {processing && <Spinner />}
-                                Log in
-                            </Button>
-                        </div>
-
-                    </>
-                )}
-            </Form>
-
-            {status && (
-                <div className="mb-4 text-center text-sm font-medium text-green-600">
-                    {status}
-                </div>
-            )}
-        </>
-    );
+    return <>
+        <Head title="Entrar | Eplus Teutônia"/>
+        {status && <div className="mb-5 border border-green-200 bg-green-50 p-4 text-sm font-medium text-green-700">{status}</div>}
+        <Form {...store.form()} resetOnSuccess={['password']} className="space-y-5">
+            {({ processing, errors }) => <>
+                <label className="block"><span className="mb-2 block text-sm font-bold">E-mail</span><div className="flex h-13 items-center border border-black/15 bg-[#f4f4f2] px-4 transition focus-within:border-[#b3264f]"><Mail size={18} className="mr-3 shrink-0 text-black/30"/><input id="email" type="email" name="email" required autoFocus tabIndex={1} autoComplete="email" placeholder="seu@email.com" className="min-w-0 flex-1 bg-transparent outline-none"/></div><InputError className="mt-2" message={errors.email}/></label>
+                <label className="block"><span className="mb-2 flex items-center justify-between gap-3 text-sm font-bold"><span>Senha</span>{canResetPassword&&<Link href={request()} tabIndex={5} className="font-medium text-[#b3264f] hover:underline">Esqueci minha senha</Link>}</span><div className="relative"><LockKeyhole size={18} className="pointer-events-none absolute top-1/2 left-4 z-10 -translate-y-1/2 text-black/30"/><PasswordInput id="password" name="password" required tabIndex={2} autoComplete="current-password" placeholder="Digite sua senha" className="h-13 rounded-none border-black/15 bg-[#f4f4f2] pr-11 pl-11 shadow-none focus-visible:border-[#b3264f] focus-visible:ring-0"/></div><InputError className="mt-2" message={errors.password}/></label>
+                <label className="flex cursor-pointer items-center gap-3 text-sm text-black/60"><Checkbox id="remember" name="remember" tabIndex={3} className="rounded-none data-[state=checked]:border-[#b3264f] data-[state=checked]:bg-[#b3264f]"/><span>Lembrar meu acesso</span></label>
+                <button type="submit" tabIndex={4} disabled={processing} data-test="login-button" className="flex w-full items-center justify-center gap-3 bg-[#b3264f] px-6 py-4 font-bold text-white transition hover:bg-[#d60057] disabled:cursor-not-allowed disabled:opacity-60">{processing?<><LoaderCircle size={18} className="animate-spin"/>Entrando...</>:<>Entrar na área restrita <ArrowRight size={18}/></>}</button>
+            </>}
+        </Form>
+    </>;
 }
 
 Login.layout = {
-    title: 'Log in to your account',
-    description: 'Enter your email and password below to log in',
+    title: 'Bem-vindo de volta',
+    description: 'Entre com seu e-mail e senha para acessar sua conta.',
 };
