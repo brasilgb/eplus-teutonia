@@ -19,5 +19,5 @@ it('renders the product image in the social sharing metadata', function () {
         ->assertSee('<meta property="og:title" content="Produto de teste | Eplus">', false)
         ->assertSee('<meta property="og:description" content="Descrição do produto">', false)
         ->assertSee('<meta property="og:image" content="http://localhost/storage/product/produto.jpg">', false)
-        ->assertSee('<meta property="og:url" content="http://localhost/produtos/detalhes/produto-de-teste">', false);
+        ->assertSee('<meta property="og:url" content="http://localhost/produtos/detalhes/produto-de-teste?v=', false);
 });

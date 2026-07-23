@@ -135,18 +135,26 @@ class PublicSiteController extends Controller
         $shareImage = $product->featured
             ? url('/storage/'.ltrim($product->featured, '/'))
             : null;
+        $shareUrl = $request->url().'?v='.strtotime($product->updated_at);
+        $imagePath = $product->featured
+            ? storage_path('app/public/'.ltrim($product->featured, '/'))
+            : null;
+        $imageSize = $imagePath && is_file($imagePath) ? getimagesize($imagePath) : false;
 
         return Inertia::render('site/product-detail', [
             'product' => $product,
             'heroImage' => DB::table('categories')->where('type', 'product')->whereNull('category_id')->value('featured'),
             'whatsapp' => DB::table('settings')->value('whatsapp'),
             'shareImage' => $shareImage,
-            'shareUrl' => $request->url(),
+            'shareUrl' => $shareUrl,
         ])->withViewData('socialMeta', [
             'title' => $product->title.' | Eplus',
             'description' => $product->summary ?: $product->title,
             'image' => $shareImage,
-            'url' => $request->url(),
+            'imageType' => $imageSize['mime'] ?? null,
+            'imageWidth' => $imageSize[0] ?? null,
+            'imageHeight' => $imageSize[1] ?? null,
+            'url' => $shareUrl,
         ]);
     }
 

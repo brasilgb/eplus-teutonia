@@ -41,6 +41,14 @@
             <meta property="og:url" content="{{ $socialMeta['url'] }}">
             @if ($socialMeta['image'])
                 <meta property="og:image" content="{{ $socialMeta['image'] }}">
+                <meta property="og:image:secure_url" content="{{ $socialMeta['image'] }}">
+                @if ($socialMeta['imageType'])
+                    <meta property="og:image:type" content="{{ $socialMeta['imageType'] }}">
+                @endif
+                @if ($socialMeta['imageWidth'] && $socialMeta['imageHeight'])
+                    <meta property="og:image:width" content="{{ $socialMeta['imageWidth'] }}">
+                    <meta property="og:image:height" content="{{ $socialMeta['imageHeight'] }}">
+                @endif
                 <meta property="og:image:alt" content="{{ $socialMeta['title'] }}">
             @endif
         @endisset
